@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=TaskRepository::class)
  */
@@ -25,12 +26,13 @@ class Task
     private $Name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Lapse::class, mappedBy="task", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Lapse::class, mappedBy="task", orphanRemoval=true, cascade={"persist"})
      */
     private $lapses;
 
-    public function __construct()
+    public function __construct(String $name)
     {
+        $this->Name = $name;
         $this->lapses = new ArrayCollection();
     }
 

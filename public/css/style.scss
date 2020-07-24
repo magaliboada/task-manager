@@ -10,19 +10,18 @@ html * {
 
     .task-table {
         min-height: 500px;
-    }
-    
-    
+        text-align: center;
+    }       
     
     .new-task {
-
-        > div {
-            padding: 20px;
-        }
 
         border: 1px solid gray;
         display: flex;
         align-items: center;
+
+        > div {
+            padding: 20px;
+        }        
     
         input#task-name {
             width: -webkit-fill-available;
@@ -30,7 +29,7 @@ html * {
             border-bottom: 1px solid black;
         }
         
-        div#timer {
+        #timer {
             display: flex;
             align-items: center;
             justify-content: space-evenly;

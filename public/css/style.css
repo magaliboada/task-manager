@@ -10,6 +10,7 @@ html * {
 
 .container.main-content .task-table {
   min-height: 500px;
+  text-align: center;
 }
 
 .container.main-content .new-task {
@@ -32,7 +33,7 @@ html * {
   border-bottom: 1px solid black;
 }
 
-.container.main-content .new-task div#timer {
+.container.main-content .new-task #timer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

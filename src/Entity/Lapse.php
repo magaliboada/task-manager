@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LapseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Task;
 
 /**
  * @ORM\Entity(repositoryClass=LapseRepository::class)
@@ -32,6 +33,14 @@ class Lapse
      * @ORM\JoinColumn(nullable=false)
      */
     private $task;
+
+    public function __construct(Task $task, $startTime,  $endTime)
+    {
+        $this->setTask($task);
+        $this->setStartTime(new \DateTime($startTime));
+        $this->setEndTime(new \DateTime($endTime));
+
+    }
 
     public function getId(): ?int
     {

@@ -35,33 +35,54 @@ $( document ).ready(function() {
 
         var storeTask = $('input#task-name').val();
         var time = $('.values').html();
-        
+                
         endTime = new Date();
         totalTime = endTime - startTime;
         totalTime /= 1000; totalTime = parseInt(totalTime);
 
         var foundTask = $('.task-table td.name').filter(function() {
             return $(this).text() == storeTask;
-        });
-        
+        });        
 
         if (foundTask.length != 0 ) {
             var timeSpan = foundTask.closest('td').next();
             seconds = parseInt(totalTime) + parseInt(timeSpan.attr('seconds'));
             timeSpan.attr('seconds', seconds);
             timeSpan.html(secondsTimeSpanToHMS(seconds));
-
-            console.log(secondsTimeSpanToHMS(seconds))
         }
         else {
             $('.task-table tr:last').after('<tr><td class= "name">' + storeTask +'</td><td seconds =' + totalTime +'>' + time + '</td></tr>');
             $('.no-result').remove();
         }
 
+        startTime = startTime.getTime();
+        endTime = endTime.getTime();
         
-        //Ajax send endTime values = taskName, end
-        //PP Look for lapse null end value and set datetime
 
+        $('.task-table td.name')
+        that = $(this);
+        $.ajax({
+            url:'/new',
+            type: "POST",
+            dataType: "json",
+            data: {
+                "task": {
+                    "name": storeTask,
+                    "startTime": startTime,
+                    "endTime" : endTime
+                }
+            },
+            async: true,
+            success: function (data)
+            {
+                console.log(data)
+                $('div#ajax-results').html(data.output);
+
+            }
+        });
+        
+        //Ajax send taskName, startDate, endDate
+        
         $(".startButton").css("display", "block");
         $(".stopButton").css("display", "none");            
         $("input#task-name").removeAttr("disabled"); 

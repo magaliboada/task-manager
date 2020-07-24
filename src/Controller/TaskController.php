@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Form\TaskType;
+use App\Entity\Lapse;
 use App\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,33 +30,51 @@ class TaskController extends AbstractController
     /**
      * @Route("/new", name="task_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TaskRepository $taskRepository)
     {
 
-        if($request->request->get('some_var_name')){
+        if($request->request->get('task')){
             //make something curious, get some unbelieveable data
-            $arrData = ['output' => 'here the result which will appear in div'];
-            return new JsonResponse($arrData);
+            $status = ['output' => true];
+
+
+            $taskArray = $request->request->get('task');
+
+            $task = $taskRepository->findByName($taskArray['name']);
+            $entityManager = $this->getDoctrine()->getManager();
+            
+            if(!$task) {
+
+                $task = new Task($taskArray['name']);        
+                $entityManager->persist($task);
+            }
+
+            
+            
+
+            // $task = new Task();
+            $seconds = $taskArray['startTime'] / 1000;
+            $startDate = date("Y/m/d H:i:s", $seconds);
+
+            $seconds = $taskArray['endTime'] / 1000;
+            $endDate = date("Y/m/d H:i:s", $seconds);
+            $lapse  = new Lapse($task, $startDate, $endDate);
+
+            $entityManager->persist($lapse);
+            $entityManager->flush();
+
+            // $startDate = date("Y-m-d h:i:s",$taskArray['startTime']);
+            // $endDate = date("Y-m-d h:i:s",$taskArray['endTime']);
+
+            
+            $task->addLapse($lapse);
+            
+
+
+
+
+            return new JsonResponse($endDate);
         }
-    
-        return $this->render('task/new.html.twig');
-
-        // $task = new Task();
-        // $form = $this->createForm(TaskType::class, $task);
-        // $form->handleRequest($request);
-
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $entityManager = $this->getDoctrine()->getManager();
-        //     $entityManager->persist($task);
-        //     $entityManager->flush();
-
-        //     return $this->redirectToRoute('task_index');
-        // }
-
-        // return $this->render('task/new.html.twig', [
-        //     'task' => $task,
-        //     'form' => $form->createView(),
-        // ]);
     }
 
     /**
