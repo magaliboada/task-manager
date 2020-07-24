@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/")
@@ -30,22 +31,31 @@ class TaskController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $task = new Task();
-        $form = $this->createForm(TaskType::class, $task);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($task);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('task_index');
+        if($request->request->get('some_var_name')){
+            //make something curious, get some unbelieveable data
+            $arrData = ['output' => 'here the result which will appear in div'];
+            return new JsonResponse($arrData);
         }
+    
+        return $this->render('task/new.html.twig');
 
-        return $this->render('task/new.html.twig', [
-            'task' => $task,
-            'form' => $form->createView(),
-        ]);
+        // $task = new Task();
+        // $form = $this->createForm(TaskType::class, $task);
+        // $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $entityManager = $this->getDoctrine()->getManager();
+        //     $entityManager->persist($task);
+        //     $entityManager->flush();
+
+        //     return $this->redirectToRoute('task_index');
+        // }
+
+        // return $this->render('task/new.html.twig', [
+        //     'task' => $task,
+        //     'form' => $form->createView(),
+        // ]);
     }
 
     /**
@@ -79,7 +89,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="task_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="task_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Task $task): Response
     {

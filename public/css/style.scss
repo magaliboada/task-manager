@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html * {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+
+.container.main-content {
+    margin-top: 50px;
+
+    .task-table {
+        min-height: 500px;
+    }
+    
+    
+    
+    .new-task {
+
+        > div {
+            padding: 20px;
+        }
+
+        border: 1px solid gray;
+        display: flex;
+        align-items: center;
+    
+        input#task-name {
+            width: -webkit-fill-available;
+            border: none;
+            border-bottom: 1px solid black;
+        }
+        
+        div#timer {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+    
+        .values {
+            min-width: 80px;
+        }
+    }
+}
+

@@ -3,33 +3,53 @@
 {% block title %}Task index{% endblock %}
 
 {% block body %}
-    <h1>Task index</h1>
+<script src="{{ asset('js/easytimer.min.js') }}"></script>
+<script src="{{ asset('js/taskhandler.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
-    <table class="table">
+
+    <div class="container main-content">
+    <h1>Tasks</h1>
+
+    <table class="table task-table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
-                <th>actions</th>
+                <th>Time</th>
             </tr>
         </thead>
         <tbody>
         {% for task in tasks %}
             <tr>
-                <td>{{ task.id }}</td>
-                <td>{{ task.Name }}</td>
-                <td>
-                    <a href="{{ path('task_show', {'id': task.id}) }}">show</a>
-                    <a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
-                </td>
+                <td class = "name">{{ task.Name }}</td>
             </tr>
         {% else %}
-            <tr>
+
+            <tr class="no-result">
                 <td colspan="3">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('task_new') }}">Create new</a>
+    <div class="row new-task">
+        <div class="task-name col-sm-8">
+            <input type="text" name="task-name" id="task-name">
+            <span class="required-message"></span>
+        </div>
+        <div id="timer" class="col-sm-4">
+            <div class="buttons">                
+                <button class="startButton btn btn-success">Start</button>
+                <button class='stopButton btn btn-danger' style="display: none;">Stop</button>
+            </div>
+            <div class="values">00:00:00</div>            
+        </div>
+
+    </div>
+    
+
+    
+
+ 
+    </div>
 {% endblock %}

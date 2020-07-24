@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html * {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
+
+.container.main-content {
+  margin-top: 50px;
+}
+
+.container.main-content .task-table {
+  min-height: 500px;
+}
+
+.container.main-content .new-task {
+  border: 1px solid gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container.main-content .new-task > div {
+  padding: 20px;
+}
+
+.container.main-content .new-task input#task-name {
+  width: -webkit-fill-available;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.container.main-content .new-task div#timer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.container.main-content .new-task .values {
+  min-width: 80px;
+}
+/*# sourceMappingURL=style.css.map */
