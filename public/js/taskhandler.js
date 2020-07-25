@@ -75,9 +75,7 @@ $( document ).ready(function() {
             async: true,
             success: function (data)
             {
-                console.log(data)
-                $('div#ajax-results').html(data.output);
-
+                // console.log(data)
             }
         });
         

@@ -24,12 +24,17 @@ class TaskController extends AbstractController
     {
         $tasks = $taskRepository->findAll();
         
-        foreach ($tasks as $key => $task) {
+        foreach ($tasks as $task) {
+            $seconds = 0;
             $lapses = $task->getLapses();
 
-            // echo var_export($lapses, true);
-        }
+            foreach ($lapses as $lapse) {
+                $seconds += $lapse->getComputedSeconds();
+            }
 
+            $task->seconds = $seconds;
+            $task->formattedTime = $this->secondsToTime($seconds);
+        }
 
         return $this->render('task/index.html.twig', [
             'tasks' => $tasks,
@@ -44,28 +49,49 @@ class TaskController extends AbstractController
         if($request->request->get('task')){
 
             $taskArray = $request->request->get('task');
+            //Look for existing task
             $task = $taskRepository->findByName($taskArray['name']);
             $entityManager = $this->getDoctrine()->getManager();
             
             if(!$task) {
-
+                //Create task if it doesn't exist
                 $task = new Task($taskArray['name']);        
                 $entityManager->persist($task);
             }          
-            
-            $seconds = $taskArray['startTime'] / 1000;
-            $startDate = date("Y/m/d H:i:s", $seconds);
 
-            $seconds = $taskArray['endTime'] / 1000;
-            $endDate = date("Y/m/d H:i:s", $seconds);
-            $lapse  = new Lapse($task, $startDate, $endDate);
+            //Format DateTime
+            $startDate = $this->milisecondsToDatetTime($taskArray['startTime']);        
+            $endDate = $this->milisecondsToDatetTime($taskArray['endTime']);      
 
-            $entityManager->persist($lapse);
+            //Create new Lapse and add it to the task
+            $task->addLapse(new Lapse($startDate, $endDate));
+
+            //Save task
+            $entityManager->persist($task);
             $entityManager->flush();
 
-            $status = ['output' => true];
+            $status = ['output' => 'ok'];
             return new JsonResponse($status);
         }
+    }
+
+
+    //Format miliseconds comming from JS to PHP Datetime
+    private function milisecondsToDatetTime($miliseconds) : \DateTime
+    {
+        $seconds = $miliseconds / 1000;
+        $date = date("Y/m/d H:i:s", $seconds);
+        return new \DateTime($date);
+    }
+
+    //Format seconds to Time for template displaying
+    private function secondsToTime($seconds) : String
+    {
+        $hours = floor($seconds / 3600);
+        $mins = floor($seconds / 60 % 60);
+        $secs = floor($seconds % 60);
+
+        return sprintf('%02d:%02d:%02d', $hours, $mins, $secs);;
     }
 
 }

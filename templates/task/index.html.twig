@@ -10,7 +10,7 @@
 
     <div class="container main-content">
     <h1>Tasks</h1>
- {{ dump(tasks) }} 
+ 
     <table class="table task-table">
         <thead>
             <tr>
@@ -19,10 +19,12 @@
             </tr>
         </thead>
         <tbody>
-        {% for task in tasks %}
+        {% for task in tasks %}    
             <tr>
                 <td class = "name">{{ task.Name }}</td>
+                <td seconds = "{{ task.seconds }}">{{ task.formattedTime }}</td>
             </tr>
+                
         {% else %}
 
             <tr class="no-result">
@@ -46,9 +48,6 @@
         </div>
 
     </div>
-    
-
-    <div id="ajax-results">Ajax result</div>
 
     </div>
 {% endblock %}

@@ -30,16 +30,16 @@ class Lapse
 
     /**
      * @ORM\ManyToOne(targetEntity=Task::class, inversedBy="lapses")
-     * @ORM\JoinColumn(nullable=false)
-     */
+     * @ORM\JoinColumn(nullable=false, name="task_id", referencedColumnName="id")
+    */
     private $task;
 
-    public function __construct(Task $task, $startTime,  $endTime)
-    {
-        $this->setTask($task);
-        $this->setStartTime(new \DateTime($startTime));
-        $this->setEndTime(new \DateTime($endTime));
 
+
+    public function __construct($startTime,  $endTime)
+    {
+        $this->setStartTime($startTime);
+        $this->setEndTime($endTime);
     }
 
     public function getId(): ?int
@@ -76,10 +76,16 @@ class Lapse
         return $this->task;
     }
 
+    public function getComputedSeconds(): ?Int
+    {
+        return $this->getEndTime()->format('U') - $this->getStartTime()->format('U');
+    }
+
     public function setTask(?Task $task): self
     {
         $this->task = $task;
 
         return $this;
     }
+
 }
