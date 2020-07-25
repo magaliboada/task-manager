@@ -78,9 +78,11 @@ class Lapse
 
     public function getComputedSeconds(): ?Int
     {
+        //compute total seconds with start and end date
         if ($this->getEndTime())
             return $this->getEndTime()->format('U') - $this->getStartTime()->format('U');
         else {
+            //if end date is not set, get current date
             $now = new \DateTime();
             return $now->format('U') - $this->getStartTime()->format('U');
         }

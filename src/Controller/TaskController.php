@@ -22,8 +22,10 @@ class TaskController extends AbstractController
      */
     public function index(TaskRepository $taskRepository): Response
     {
+        //get all tasks
         $tasks = $taskRepository->findAll();
         
+        //for each task, find related lapses 
         foreach ($tasks as $task) {
             $seconds = 0;
             $lapses = $task->getLapses();
@@ -32,7 +34,9 @@ class TaskController extends AbstractController
                 $seconds += $lapse->getComputedSeconds();
             }
 
+            //get seconds to set the attribute
             $task->seconds = $seconds;
+            //get formatted time to display in table
             $task->formattedTime = $this->secondsToTime($seconds);
         }
 

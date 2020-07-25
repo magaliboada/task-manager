@@ -23,6 +23,11 @@ html * {
         thead th {
             font-size: x-large;
         }
+
+        tbody tr:nth-of-type(odd) {
+            --bs-table-accent-bg: #8cbf8c1a;
+        }
+        
     }       
     
     .new-task {

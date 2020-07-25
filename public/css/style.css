@@ -22,6 +22,10 @@ html * {
   font-size: x-large;
 }
 
+.container.main-content .task-table tbody tr:nth-of-type(odd) {
+  --bs-table-accent-bg: #8cbf8c1a;
+}
+
 .container.main-content .new-task {
   border: 1px solid gray;
   display: -webkit-box;
