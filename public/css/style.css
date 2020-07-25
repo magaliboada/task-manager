@@ -8,9 +8,18 @@ html * {
   margin-top: 50px;
 }
 
+.container.main-content h1 {
+  border-bottom: 2px solid #8cbf8c;
+  margin-bottom: 30px;
+}
+
 .container.main-content .task-table {
   min-height: 500px;
   text-align: center;
+}
+
+.container.main-content .task-table thead th {
+  font-size: x-large;
 }
 
 .container.main-content .new-task {
@@ -47,5 +56,42 @@ html * {
 
 .container.main-content .new-task .values {
   min-width: 80px;
+}
+
+.container.main-content .new-task .btn {
+  color: white;
+  font-weight: 500;
+}
+
+.container.main-content .new-task .btn.start {
+  background-color: #8cbf8c;
+}
+
+.container.main-content .new-task .btn.end {
+  background-color: #e44655;
+}
+
+.container.main-content .total {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  margin: 20px;
+  background: #8cbf8c;
+  color: white;
+  height: 65px;
+  font-size: x-large;
+}
+
+.container.main-content .total * {
+  font-weight: 400;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 /*# sourceMappingURL=style.css.map */

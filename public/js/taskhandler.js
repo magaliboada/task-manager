@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+
     function secondsTimeSpanToHMS(s) {
         var h = Math.floor(s/3600); //Get whole hours
         s -= h*3600;
@@ -7,8 +8,22 @@ $( document ).ready(function() {
         return h+":"+(m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); 
     }
 
+    function updateTotalTime() {
+        $seconds = 0; 
+        
+        $( "td[seconds]" ).each( function( index ){
+            $seconds += parseInt($( this ).attr( "seconds" ));
+        });
+
+        $('.total-value').html(secondsTimeSpanToHMS($seconds));
+    }
+
     var timer = new easytimer.Timer();
     var startTime = endTime = totalTime = 0;
+    
+    window.addEventListener("load", function(){
+        updateTotalTime();
+    });
 
     //On timer start
     $('#timer .startButton').click(function () {
@@ -55,6 +70,8 @@ $( document ).ready(function() {
             $('.no-result').remove();
         }
 
+        //Update total timer
+        updateTotalTime();
         startTime = startTime.getTime();
         endTime = endTime.getTime();
         
@@ -103,4 +120,7 @@ $( document ).ready(function() {
 
     });
 
+
+
+    
 });

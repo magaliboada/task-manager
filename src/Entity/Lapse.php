@@ -78,7 +78,12 @@ class Lapse
 
     public function getComputedSeconds(): ?Int
     {
-        return $this->getEndTime()->format('U') - $this->getStartTime()->format('U');
+        if ($this->getEndTime())
+            return $this->getEndTime()->format('U') - $this->getStartTime()->format('U');
+        else {
+            $now = new \DateTime();
+            return $now->format('U') - $this->getStartTime()->format('U');
+        }
     }
 
     public function setTask(?Task $task): self

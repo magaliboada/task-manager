@@ -32,7 +32,13 @@
             </tr>
         {% endfor %}
         </tbody>
+        
     </table>
+
+    <div class="total">
+        <label for="total">Total</label>
+        <div class="total-value">00:00:00</div>
+    </div>
 
     <div class="row new-task">
         <div class="task-name col-sm-8">
@@ -41,8 +47,8 @@
         </div>
         <div id="timer" class="col-sm-4">
             <div class="buttons">                
-                <button class="startButton btn btn-success">Start</button>
-                <button class='stopButton btn btn-danger' style="display: none;">Stop</button>
+                <button class="startButton btn start">Start</button>
+                <button class='stopButton btn end' style="display: none;">Stop</button>
             </div>
             <div class="values">00:00:00</div>            
         </div>
@@ -50,4 +56,5 @@
     </div>
 
     </div>
+
 {% endblock %}
