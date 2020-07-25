@@ -36,15 +36,15 @@ class LapseRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Lapse
+    
+    public function findByTaskAndNullEnd($task): ?Lapse
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('l.task = :task and l.endTime is NULL')
+            ->setParameter('task', $task)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }

@@ -80,6 +80,7 @@ class TaskController extends AbstractController
     private function milisecondsToDatetTime($miliseconds) : \DateTime
     {
         $seconds = $miliseconds / 1000;
+        $seconds += 60*60*2;
         $date = date("Y/m/d H:i:s", $seconds);
         return new \DateTime($date);
     }

@@ -36,7 +36,7 @@ class Lapse
 
 
 
-    public function __construct($startTime,  $endTime)
+    public function __construct($startTime,  $endTime = null)
     {
         $this->setStartTime($startTime);
         $this->setEndTime($endTime);
