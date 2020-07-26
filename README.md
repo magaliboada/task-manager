@@ -23,10 +23,10 @@ Visit localhost and start adding your tasks.
 # For console managing:
 
 - Manage tasks
-  Execute on root project: php bin/console task:manager task_name [start or stop]
+  Execute on root symfony project: php bin/console task:manager task_name [start or end]
 
 - List tasks
-  Execute on root project: php bin/console task:list
+  Execute on root symfony project: php bin/console task:list
 
 
  

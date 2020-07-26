@@ -32,23 +32,23 @@ class TaskManagerCommand extends Command
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $task = $this->entityManager->getRepository("App:Task")->findByName($input->getArgument('task'));
-
-        if(!$task) {
-            //Create task if it doesn't exist
-            $task = new Task($input->getArgument('task'));        
-            $this->entityManager->persist($task);
-
-            $output->writeln([
-                'Task Created:',
-                $task->getName(),
-            ]);
-        }          
-
-        //Create new Lapse and add it to the task
+    {        
+                 
         if($input->getArgument('status') == 'start') {
 
+            $task = $this->entityManager->getRepository("App:Task")->findByName($input->getArgument('task'));
+
+            if(!$task) {
+                //Create task if it doesn't exist
+                $task = new Task($input->getArgument('task'));        
+                $this->entityManager->persist($task);
+                $this->entityManager->flush();
+    
+                $output->writeln([
+                    'Task Created:',
+                    $task->getName(),
+                ]);
+            } 
             //check if there's a lapse running for that task that hasn't ended and ask to stop it in case it exists
             $lapse = $this->entityManager->getRepository("App:Lapse")->findByTaskAndNullEnd($task);
             if($lapse) {
@@ -61,6 +61,8 @@ class TaskManagerCommand extends Command
                     'Task starting:',
                     $task->getName(),
                 ]);
+
+                //Create new Lapse and add it to the task
                 $task->addLapse(new Lapse(new \DateTime()));
                 $this->entityManager->persist($task);
             }
