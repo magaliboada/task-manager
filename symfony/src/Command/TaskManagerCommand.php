@@ -33,10 +33,9 @@ class TaskManagerCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {        
+        $task = $this->entityManager->getRepository("App:Task")->findByName($input->getArgument('task'));
                  
-        if($input->getArgument('status') == 'start') {
-
-            $task = $this->entityManager->getRepository("App:Task")->findByName($input->getArgument('task'));
+        if($input->getArgument('status') == 'start') {            
 
             if(!$task) {
                 //Create task if it doesn't exist
